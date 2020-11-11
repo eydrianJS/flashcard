@@ -1,71 +1,48 @@
 import React, { useState } from 'react';
-import { Image, View, StyleSheet } from 'react-native';
-import Swiper from 'react-native-deck-swiper';
+import { View, Text } from 'react-native';
+import { StyleSheet, Button } from 'react-native';
+import Flashcard from './Flashcard';
 // @ts-ignore
-import data from './data';
-
-const Card = ({ card }) => (
-  <View style={style.card}>
-    <Image style={style.cardImage} source={{ uri: card.image }} />
-  </View>
-);
+import data from './Flashcard/data';
 
 const Flashcards = () => {
   const [index, setIndex] = useState(0);
-  const onSwiped = () => {
-    console.log('swipe');
-    setIndex(index + 1);
-  };
-
+  const [showTranslation, setShowTranslation] = useState(false);
+  const [result, setResult] = useState({ badAnswers: 0, goodAnswers: 0 });
   return (
     <View style={style.container}>
-      <Swiper
-        cards={data}
-        cardIndex={index}
-        renderCard={(card) => <Card card={card} />}
-        onSwiped={onSwiped}
-        stackSize={4}
-        stackScale={10}
-        stackSeparation={14}
-        disableBottomSwipe
-        disableTopSwipe
-        overlayLabels={{
-          left: {
-            title: 'Nope',
-            style: {
-              label: {
-                backgroundColor: 'red',
-                color: 'white',
-                fontSize: 24,
-              },
-              wrapper: {
-                flexDirection: 'column',
-                alignItems: 'flex-end',
-                justifyContent: 'flex-start',
-                marginTop: 20,
-                marginLeft: -20,
-              },
-            },
-          },
-          right: {
-            title: 'Nice!',
-            style: {
-              label: {
-                backgroundColor: 'green',
-                color: 'white',
-                fontSize: 24,
-              },
-              wrapper: {
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-start',
-                marginTop: 20,
-                marginLeft: 20,
-              },
-            },
-          },
-        }}
-      ></Swiper>
+      {result.badAnswers + result.goodAnswers == data.length ? (
+        <View style={style.result}>
+          <Text style={style.resultText}>You know {result.goodAnswers} words!!</Text>
+          <Text style={style.resultText}>You don't know {result.badAnswers} words.</Text>
+        </View>
+      ) : (
+        <>
+          <View style={style.topText}>
+            <Text>Swipe Left if You don't know! </Text>
+            <Text>Swipe Right if You know!</Text>
+          </View>
+          <View style={style.flashcard}>
+            <Flashcard
+              index={index}
+              setIndex={setIndex}
+              setShowTranslation={setShowTranslation}
+              result={result}
+              setResult={setResult}
+            />
+          </View>
+          <View style={style.translation}>
+            {showTranslation ? (
+              <Text style={style.translationText}>{data[index].polish}</Text>
+            ) : (
+              false
+            )}
+          </View>
+          <View style={style.button}>
+            <Button onPress={() => setShowTranslation(true)} title="Check" />
+          </View>
+        </>
+      )}
     </View>
   );
 };
@@ -74,24 +51,36 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
+  },
+  topText: {
+    paddingTop: 10,
+    flex: 0.1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  result: {
+    padding: 10,
+    flex: 0.8,
     justifyContent: 'center',
   },
-  card: {
-    flex: 0.45,
-    borderRadius: 8,
-    shadowRadius: 25,
-    shadowColor: '#000',
-    shadowOpacity: 0.08,
-    shadowOffset: { width: 0, height: 0 },
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+  flashcard: {
+    flex: 0.9,
   },
-  cardImage: {
-    width: 160,
-    flex: 1,
-    resizeMode: 'contain',
+  translation: {
+    flex: 0.1,
+    padding: 50,
+  },
+  translationText: {
+    fontSize: 50,
+    textAlign: 'center',
+  },
+  resultText: {
+    fontSize: 30,
+    textAlign: 'center',
+  },
+  button: {
+    padding: 20,
+    paddingBottom: 100,
   },
 });
 

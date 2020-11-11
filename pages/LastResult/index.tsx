@@ -1,8 +1,13 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
+import Flashcard from '../Flashcards/Flashcard';
 
 const LastResult = () => {
-  return <Text>LastResult</Text>;
+  return (
+    <View>
+      <Flashcard />
+    </View>
+  );
 };
 
 export default LastResult;
