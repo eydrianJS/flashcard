@@ -6,7 +6,7 @@ import NavigationButton from '../../components/NavigationButton';
 interface iNavigation {
   navigation: NavigationScreenProp<any>;
 }
-
+//Nawigacja po aplikacji
 const Navigation = ({ navigation }: iNavigation) => {
   return (
     <View style={styles.screen}>

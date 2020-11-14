@@ -8,8 +8,10 @@ import { Card } from './interfaces/Card';
 import data from './data';
 
 const Flashcard = ({ index, setIndex, setShowTranslation, result, setResult }) => {
+  //stan poprawnmosci odpowiedzi
   const { badAnswer, goodAnswer } = useInit();
   const onSwipedLeft = () => {
+    //logika przesuniecia w lewo
     const currentResult: { badAnswers: number; goodAnswers: number } = { ...result };
     currentResult.badAnswers += 1;
     setResult(currentResult);
@@ -17,6 +19,7 @@ const Flashcard = ({ index, setIndex, setShowTranslation, result, setResult }) =
     setShowTranslation(false);
   };
   const onSwipedRight = () => {
+    //logika przesuniecia w prawo
     const currentResult: { badAnswers: number; goodAnswers: number } = { ...result };
     currentResult.goodAnswers += 1;
     setResult(currentResult);

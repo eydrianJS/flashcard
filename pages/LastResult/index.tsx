@@ -1,13 +1,9 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import Flashcard from '../Flashcards/Flashcard';
 
 const LastResult = () => {
-  return (
-    <View>
-      <Flashcard />
-    </View>
-  );
+  //w Planasz pokazanie rezultatow
+  return <View></View>;
 };
 
 export default LastResult;

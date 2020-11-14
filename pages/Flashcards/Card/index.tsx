@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, View, StyleSheet, Text } from 'react-native';
 import iCard from './interfaces/iCard';
-
+//pojedyncza karta
 const Card = ({ card }: iCard) => (
   <View style={style.card}>
     <Text style={style.cardImage}>{card.english}</Text>

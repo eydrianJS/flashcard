@@ -1,6 +1,7 @@
 import React from 'react';
 
 const useInit = () => {
+  // Pokazanie ze to zla odpowiedz
   const badAnswer = {
     title: `I don't know!`,
     style: {
@@ -20,6 +21,7 @@ const useInit = () => {
   };
 
   const goodAnswer = {
+    // Pokazanie ze to dobra odpowiedz
     title: 'I know!',
     style: {
       label: {
